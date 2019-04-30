@@ -6,4 +6,4 @@ The purpose of CARS is twofold:
 2. To analyze historical attendance data so we can better predict future attendance numbers
 
 ## Contributing
-See [Contributing.md](Contributing.md)
+See [CONTRIBUTING.md](CONTRIBUTING.md)
