@@ -24,10 +24,10 @@ type importCommand struct {
 	dbFileName string
 }
 
-func (i *importCommand) run(c *kingpin.ParseContext) error {
-	db, err := sql.Open("sqlite3", i.dbFileName)
+func persistImport(dbName string, event *models.Event, records []*models.Attendance) error {
+	db, err := sql.Open("sqlite3", dbName)
 	if err != nil {
-		return errors.Wrapf(err, "error opening DB file: %#v", i.dbFileName)
+		return errors.Wrapf(err, "error opening DB file: %#v", dbName)
 	}
 	storage, err := storage.NewSQLStorage(db)
 	if err != nil {
@@ -38,6 +38,21 @@ func (i *importCommand) run(c *kingpin.ParseContext) error {
 	if err != nil {
 		return errors.Wrap(err, "error creating attendees table")
 	}
+	err = storage.UpsertEvent(event)
+	if err != nil {
+		return errors.Wrap(err, "error upserting event")
+	}
+	for _, record := range records {
+		err = storage.UpsertAttendee(record.Attendee())
+		if err != nil {
+			log.WithField("attendee", record.Attendee()).WithError(err).Error("error upserting attendee")
+			return errors.Wrap(err, "error upserting attendee")
+		}
+	}
+	return nil
+}
+
+func (i *importCommand) run(c *kingpin.ParseContext) error {
 	eventTime, err := time.Parse("January _2, 2006 3:04PM PST", i.eventTime)
 	if err != nil {
 		return errors.Wrap(err, "unable to parse time")
@@ -53,18 +68,12 @@ func (i *importCommand) run(c *kingpin.ParseContext) error {
 	if len(errs) > 0 {
 		return errors.Wrap(errs[0], "error reading from file")
 	}
-	err = storage.UpsertEvent(event)
-	if err != nil {
-		return errors.Wrap(err, "error upserting event")
+
+	fmt.Printf("processed %d attendance records\n", len(attendance))
+	if i.dbFileName != "" {
+		persistImport(i.dbFileName, event, attendance)
+		fmt.Printf("saved to SQLiteDB %#v\n", i.dbFileName)
 	}
-	for _, entry := range attendance {
-		err = storage.UpsertAttendee(entry.Attendee())
-		if err != nil {
-			log.WithField("entry", entry).WithError(err).Error("error upserting attendee")
-			return errors.Wrap(err, "error upserting attendee")
-		}
-	}
-	fmt.Printf("processed %d attendees\n", len(attendance))
 	return nil
 }
 
@@ -75,5 +84,5 @@ func AddImportSubcommand(app *kingpin.Application) {
 	f.Arg("event-name", "the name of the event").Required().StringVar(&ic.fileName)
 	f.Arg("event-time", "the time and date of the event").Required().StringVar(&ic.eventTime)
 	f.Arg("file-name", "the name of the file to read").Required().StringVar(&ic.fileName)
-	f.Arg("db-file-name", "the name of the sqlite db file").Required().StringVar(&ic.dbFileName)
+	f.Flag("save-sqlite", "save the data in a sqlite db file with the provided name").StringVar(&ic.dbFileName)
 }
