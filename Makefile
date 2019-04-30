@@ -1,8 +1,8 @@
 test:
-	go test -count=1 ./...
+	go test -cover -count=1 ./...
 
 cli:
-	make -eC cli binary
+	make -C cli binary
 	mv cli/bin/* ./bin/
 
 .PHONY: cli test
