@@ -10,8 +10,8 @@ import (
 	"github.com/sirupsen/logrus"
 	"gopkg.in/alecthomas/kingpin.v2"
 
+	"alexthemitchell/attendance/cli/reader"
 	"alexthemitchell/attendance/models"
-	"alexthemitchell/attendance/reader"
 	"alexthemitchell/attendance/storage/sql"
 )
 
@@ -64,7 +64,7 @@ func (i *importCommand) run(c *kingpin.ParseContext) error {
 	}
 
 	event := models.NewEvent(i.eventName, uuid.String(), &eventTime)
-	attendance, errs := reader.ReadFile(i.fileName, event)
+	attendance, errs := reader.ParseAttendanceFromFile(i.fileName, event)
 	if len(errs) > 0 {
 		return errors.Wrap(errs[0], "error reading from file")
 	}
@@ -84,5 +84,5 @@ func AddImportSubcommand(app *kingpin.Application) {
 	f.Arg("event-name", "the name of the event").Required().StringVar(&ic.fileName)
 	f.Arg("event-time", "the time and date of the event").Required().StringVar(&ic.eventTime)
 	f.Arg("file-name", "the name of the file to read").Required().StringVar(&ic.fileName)
-	f.Flag("save-sqlite", "save the data in a sqlite db file with the provided name").StringVar(&ic.dbFileName)
+	f.Flag("local", "save the data in a local sqlite db file with the provided name").Short('l').StringVar(&ic.dbFileName)
 }

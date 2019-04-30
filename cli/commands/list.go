@@ -12,7 +12,7 @@ func max(a, b int) int {
 }
 
 func AddListSubcommand(app *kingpin.Application) {
-	c := app.Command("list", "list information from centralized storage")
+	c := app.Command("list", "list information from storage")
 
 	lac := &listAttendeesCommand{}
 	a := c.Command("attendees", "show list of attendees").Action(lac.run)
