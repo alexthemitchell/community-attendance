@@ -1,0 +1,107 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "h9/BRXZ301/axnI6b686QA2kK0c=",
+			"path": "github.com/360EntSecGroup-Skylar/excelize",
+			"revision": "01a418bda8502890e89ab20a2b41220372877bae",
+			"revisionTime": "2019-04-27T15:40:57Z"
+		},
+		{
+			"checksumSHA1": "KmjnydoAbofMieIWm+it5OWERaM=",
+			"path": "github.com/alecthomas/template",
+			"revision": "a0175ee3bccc567396460bf5acd36800cb10c49c",
+			"revisionTime": "2016-04-05T07:15:01Z"
+		},
+		{
+			"checksumSHA1": "3wt0pTXXeS+S93unwhGoLIyGX/Q=",
+			"path": "github.com/alecthomas/template/parse",
+			"revision": "a0175ee3bccc567396460bf5acd36800cb10c49c",
+			"revisionTime": "2016-04-05T07:15:01Z"
+		},
+		{
+			"checksumSHA1": "fCc3grA7vIxfBru7R3SqjcW+oLI=",
+			"path": "github.com/alecthomas/units",
+			"revision": "2efee857e7cfd4f3d0138cc3cbb1b4966962b93a",
+			"revisionTime": "2015-10-22T06:55:26Z"
+		},
+		{
+			"checksumSHA1": "CSPbwbyzqA6sfORicn4HFtIhF/c=",
+			"path": "github.com/davecgh/go-spew/spew",
+			"revision": "d8f796af33cc11cb798c1aaeb27a4ebc5099927d",
+			"revisionTime": "2018-08-30T19:11:22Z"
+		},
+		{
+			"checksumSHA1": "Aulh7C5SVOA4Jzt5eHNH6197Mbk=",
+			"path": "github.com/konsorten/go-windows-terminal-sequences",
+			"revision": "f55edac94c9bbba5d6182a4be46d86a2c9b5b50e",
+			"revisionTime": "2019-02-26T22:47:05Z"
+		},
+		{
+			"checksumSHA1": "id3U5Ox8ydCCPCTSkipsLGZzrok=",
+			"path": "github.com/logrusorgru/aurora",
+			"revision": "cea283e61946ad8227cc02a24201407a2c9e5182",
+			"revisionTime": "2019-04-28T10:59:38Z"
+		},
+		{
+			"checksumSHA1": "9F3XFbc79zcVjz2mvv3PFjLLMy4=",
+			"path": "github.com/mattn/go-sqlite3",
+			"revision": "5994cc52dfa89a4ee21ac891b06fbc1ea02c52d3",
+			"revisionTime": "2019-04-24T09:37:27Z"
+		},
+		{
+			"checksumSHA1": "2jsbDTvwxafPp7FJjJ8IIFlTLjs=",
+			"path": "github.com/mohae/deepcopy",
+			"revision": "c48cc78d482608239f6c4c92a4abd87eb8761c90",
+			"revisionTime": "2017-09-29T03:49:55Z"
+		},
+		{
+			"checksumSHA1": "I7hloldMJZTqUx6hbVDp5nk9fZQ=",
+			"path": "github.com/pkg/errors",
+			"revision": "27936f6d90f9c8e1145f11ed52ffffbfdb9e0af7",
+			"revisionTime": "2019-02-27T00:00:51Z"
+		},
+		{
+			"checksumSHA1": "LuFv4/jlrmFNnDb/5SCSEPAM9vU=",
+			"path": "github.com/pmezard/go-difflib/difflib",
+			"revision": "5d4384ee4fb2527b0a1256a821ebfc92f91efefc",
+			"revisionTime": "2018-12-26T10:54:42Z"
+		},
+		{
+			"checksumSHA1": "mB5o9lbse489BCvZGbRkarc2Xp0=",
+			"path": "github.com/sirupsen/logrus",
+			"revision": "9b3cdde74fbe9443d704467498a7dcb61a79de9b",
+			"revisionTime": "2019-04-03T09:10:19Z"
+		},
+		{
+			"checksumSHA1": "IIsn0Wdi5rHU8xca+FzDd+YeYlc=",
+			"path": "github.com/stretchr/testify/assert",
+			"revision": "34c6fa2dc70986bccbbffcc6130f6920a924b075",
+			"revisionTime": "2019-03-04T09:57:49Z"
+		},
+		{
+			"checksumSHA1": "ZL6gUFbcm1agF3N0qusnzNNMHvA=",
+			"path": "github.com/tealeg/xlsx",
+			"revision": "b7005b5d48cbd240baa323f68fb644fe072ef088",
+			"revisionTime": "2019-04-03T19:02:20Z"
+		},
+		{
+			"checksumSHA1": "uJiAW8UJQSNNHLzLzjNhOPNTvsg=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "804c0c7841b595338f049388006a3945cb3cfad1",
+			"revisionTime": "2019-04-28T03:51:06Z"
+		},
+		{
+			"checksumSHA1": "sToCp8GThnMnsBzsHv+L/tBYQrQ=",
+			"path": "gopkg.in/alecthomas/kingpin.v2",
+			"revision": "947dcec5ba9c011838740e680966fd7087a71d0d",
+			"revisionTime": "2017-12-17T18:08:21Z"
+		},
+		{
+			"path": "https://github.com/tealeg/xlsx",
+			"revision": ""
+		}
+	],
+	"rootPath": "alexthemitchell/attendance"
+}
