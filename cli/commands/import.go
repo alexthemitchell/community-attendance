@@ -10,9 +10,9 @@ import (
 	"github.com/sirupsen/logrus"
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"alexthemitchell/attendance/cli/reader"
-	"alexthemitchell/attendance/models"
-	"alexthemitchell/attendance/storage/sql"
+	"github.com/alexthemitchell/attendance/cli/reader"
+	"github.com/alexthemitchell/attendance/models"
+	"github.com/alexthemitchell/attendance/storage/sql"
 )
 
 var log = logrus.StandardLogger()

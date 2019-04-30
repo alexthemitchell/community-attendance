@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"alexthemitchell/attendance/models"
+	"github.com/alexthemitchell/attendance/models"
 	"github.com/stretchr/testify/assert"
 )
 

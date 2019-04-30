@@ -6,7 +6,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"alexthemitchell/attendance/cli/commands"
+	"github.com/alexthemitchell/attendance/cli/commands"
 )
 
 func main() {

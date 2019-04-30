@@ -9,8 +9,8 @@ import (
 	"github.com/pkg/errors"
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"alexthemitchell/attendance/models"
-	"alexthemitchell/attendance/storage/sql"
+	"github.com/alexthemitchell/attendance/models"
+	"github.com/alexthemitchell/attendance/storage/sql"
 )
 
 const joinDateDisplayFormat = "2006-01-02"

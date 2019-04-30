@@ -8,7 +8,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	"alexthemitchell/attendance/models"
+	"github.com/alexthemitchell/attendance/models"
 )
 
 const (
