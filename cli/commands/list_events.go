@@ -29,13 +29,13 @@ func lineFormatForEvents(events []*models.Event) string {
 		maxTimeLength = max(maxTimeLength, len(event.Time().Format(eventTimeDisplayFormat)))
 	}
 
-	return attendeeLineFormatWithMaxLengths(
+	return eventLineFormatWithMaxLengths(
 		maxNameLength,
 		maxIDLength,
 		maxTimeLength)
 }
 func eventLineFormatWithMaxLengths(maxNameLength, maxIDLength, maxTimeLength int) string {
-	return fmt.Sprintf("%%-%ds\t%%%ds\t%%%ds\t%%s\n", maxNameLength, maxIDLength, maxTimeLength)
+	return fmt.Sprintf("%%-%ds\t%%%ds\t%%%ds\n", maxNameLength, maxIDLength, maxTimeLength)
 }
 
 func printEventsToScreen(events []*models.Event) {
@@ -67,6 +67,7 @@ func (l *listEventsCommand) run(c *kingpin.ParseContext) error {
 	if err != nil {
 		return errors.Wrap(err, "error getting events from storage")
 	}
+	fmt.Println(len(events))
 	printEventsToScreen(events)
 	return nil
 }

@@ -2,9 +2,10 @@ package commands
 
 import (
 	"database/sql"
+	"fmt"
 	"time"
 
-	"github.com/k0kubun/pp"
+	"github.com/google/uuid"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/alecthomas/kingpin.v2"
@@ -42,14 +43,19 @@ func (i *importCommand) run(c *kingpin.ParseContext) error {
 		return errors.Wrap(err, "unable to parse time")
 	}
 
-	event := models.NewEvent(i.eventName, "", &eventTime)
+	uuid, err := uuid.NewRandom()
+	if err != nil {
+		return errors.Wrap(err, "unable to create random UUID for event")
+	}
+
+	event := models.NewEvent(i.eventName, uuid.String(), &eventTime)
 	attendance, errs := reader.ReadFile(i.fileName, event)
+	if len(errs) > 0 {
+		return errors.Wrap(errs[0], "error reading from file")
+	}
 	err = storage.UpsertEvent(event)
 	if err != nil {
 		return errors.Wrap(err, "error upserting event")
-	}
-	if len(errs) > 0 {
-		return errors.Wrap(errs[0], "error reading from file")
 	}
 	for _, entry := range attendance {
 		err = storage.UpsertAttendee(entry.Attendee())
@@ -57,9 +63,8 @@ func (i *importCommand) run(c *kingpin.ParseContext) error {
 			log.WithField("entry", entry).WithError(err).Error("error upserting attendee")
 			return errors.Wrap(err, "error upserting attendee")
 		}
-		pp.Println(entry)
-
 	}
+	fmt.Printf("processed %d attendees\n", len(attendance))
 	return nil
 }
 
@@ -67,7 +72,8 @@ func AddImportSubcommand(app *kingpin.Application) {
 	c := app.Command("import", "import attendance information from another source")
 	ic := &importCommand{}
 	f := c.Command("file", "import information from a local file").Action(ic.run)
-	f.Flag("event-time", "the time and date of the event").Required().StringVar(&ic.eventTime)
+	f.Arg("event-name", "the name of the event").Required().StringVar(&ic.fileName)
+	f.Arg("event-time", "the time and date of the event").Required().StringVar(&ic.eventTime)
 	f.Arg("file-name", "the name of the file to read").Required().StringVar(&ic.fileName)
 	f.Arg("db-file-name", "the name of the sqlite db file").Required().StringVar(&ic.dbFileName)
 }

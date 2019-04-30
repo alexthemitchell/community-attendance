@@ -12,8 +12,8 @@ import (
 
 const (
 	countEventsQuery           = "SELECT COUNT(*) FROM events"
-	createEventsTableStatement = "CREATE TABLE IF NOT EXISTS events (name varchar(255) not null, time DATETIME not null, id int auto_increment primary key, UNIQUE(id))"
-	insertEventStatement       = "INSERT INTO events(name, time) VALUES (?,?)"
+	createEventsTableStatement = "CREATE TABLE IF NOT EXISTS events (name varchar(255) not null, time DATETIME not null, id varchar(36) primary key not null, UNIQUE(id))"
+	insertEventStatement       = "INSERT INTO events(name, time, id) VALUES (?,?,?)"
 	deleteEventStatement       = "DELETE FROM events WHERE id=?"
 	selectEventStatement       = "SELECT name, id, time FROM events WHERE id=?"
 	selectAllEventsStatement   = "SELECT name, id, time FROM events"
@@ -77,14 +77,19 @@ func (s *SQLStorage) CreateEventsTable() error {
 }
 
 func (s *SQLStorage) UpsertEvent(event *models.Event) error {
-	if event.ID() == "" {
-		if err := s.CreateEvent(event); err != nil {
-			return errors.Wrap(err, "error creating event in SQL DB")
-		}
+	// TODO: Use a transaction to make this more elegant
+	if err := s.CreateEvent(event); err == nil {
+		// This was a new entry, exit with no error
+		fmt.Println("Created Event")
+		return nil
+	} else {
+		fmt.Println(err)
 	}
+	// If we error on creation, try update in case it already exists
 	if err := s.UpdateEvent(event); err != nil {
 		return errors.Wrap(err, "error upserting event")
 	}
+	fmt.Println("Updated Event")
 	return nil
 }
 
@@ -92,9 +97,10 @@ func scanEventFromRow(rows *sql.Rows) (*models.Event, error) {
 	var id string
 	var name string
 	var time string
-	rows.Scan(&name, &id, &time)
-
-	fmt.Printf("Read: %#v %#v %#v\n", id, name, time)
+	err := rows.Scan(&name, &id, &time)
+	if err != nil {
+		return nil, errors.Wrap(err, "error scanning row")
+	}
 
 	eventTime, err := gotime.Parse(sqlTimestampFormat, time)
 	if err != nil {
@@ -128,7 +134,7 @@ func (s *SQLStorage) CreateEvent(event *models.Event) error {
 		return errors.Wrap(err, "error while preparing insert statement")
 	}
 	eventTime := event.Time().Format(sqlTimestampFormat)
-	_, err = stmt.Exec(event.Name(), eventTime)
+	_, err = stmt.Exec(event.Name(), eventTime, event.ID())
 	if err != nil {
 		return errors.Wrap(err, "error while executing insert statement")
 
