@@ -8,7 +8,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/alexthemitchell/attendance/models"
+	"github.com/alexthemitchell/community-attendance/models"
 )
 
 const rsvpTimeLayout = "January _2, 2006 3:04 PM"

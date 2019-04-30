@@ -7,7 +7,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/alexthemitchell/attendance/models"
+	"github.com/alexthemitchell/community-attendance/models"
 )
 
 const (

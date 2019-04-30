@@ -9,8 +9,8 @@ import (
 	"github.com/pkg/errors"
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/alexthemitchell/attendance/models"
-	"github.com/alexthemitchell/attendance/storage/sql"
+	"github.com/alexthemitchell/community-attendance/models"
+	"github.com/alexthemitchell/community-attendance/storage/sql"
 )
 
 const eventTimeDisplayFormat = "2006-01-02 03:04 PM PST"

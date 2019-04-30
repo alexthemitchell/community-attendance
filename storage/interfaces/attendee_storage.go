@@ -1,7 +1,7 @@
 package storage
 
 import (
-	"github.com/alexthemitchell/attendance/models"
+	"github.com/alexthemitchell/community-attendance/models"
 )
 
 type AttendeeStorage interface {
