@@ -1,4 +1,4 @@
-GO_TEST_FLAGS := -v -cover -count=1 
+GO_TEST_FLAGS := -v -cover -count=1
 GO_DEEP_TEST_FLAGS := $(GO_TEST_FLAGS) -race
 GO_TEST_TARGET := ./...
 test:
